@@ -13,10 +13,12 @@ export const handler = async (
   rawEvent: APIGatewayProxyEvent | SQSEvent | string,
   context: Context
 ): Promise<APIGatewayProxyResult | void> => {
-
-  const event: any = typeof rawEvent === 'string' ? JSON.parse(rawEvent) : rawEvent
+  let event: any
+  // const event: any = typeof rawEvent === 'string' ? JSON.parse(rawEvent) : rawEvent
 
   try {
+    event = typeof rawEvent === 'string' ? JSON.parse(rawEvent) : rawEvent
+    
     // POST /appointment
     if ('httpMethod' in event && event.httpMethod === 'POST') {
       const body = JSON.parse(event.body || '{}')

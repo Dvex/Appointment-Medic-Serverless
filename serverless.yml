@@ -39,6 +39,10 @@ provider:
           Action:
             - sns:Publish
           Resource: ${cf:AppointmentCdkStack.AppointmentTopicArn}
+        - Effect: Allow
+          Action:
+            - events:PutEvents
+          Resource: arn:aws:events:${self:provider.region}:*:event-bus/${cf:AppointmentCdkStack.AppointmentEventBusName}
 
 functions:
   appointment:
@@ -58,24 +62,12 @@ functions:
     events:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueuePEName}
-    iam:
-      role:
-        statements:
-          Action:
-            - events:PutEvents
-          Resource: arn:aws:events:${self:provider.region}:*:event-bus/${cf:AppointmentCdkStack.AppointmentEventBusName}
 
   appointment_cl:
     handler: src/handlers/appointmentClHandler.handler
     events:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueueCLName}
-    iam:
-      role:
-        statements:
-          Action:
-            - events:PutEvents
-          Resource: arn:aws:events:${self:provider.region}:*:event-bus/${cf:AppointmentCdkStack.AppointmentEventBusName}
 
 package:
   individually: false

@@ -54,18 +54,5 @@ functions:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueueCLName}
 
-plugins:
-  - serverless-esbuild
-
 package:
-  individually: true
-
-custom:
-  esbuild:
-    bundle: true
-    minify: false
-    sourcemap: true
-    exclude: ["aws-sdk"]
-    target: "node18"
-    platform: "node"
-    concurrency: 10
+  individually: false

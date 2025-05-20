@@ -68,6 +68,22 @@ functions:
     events:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueueCLName}
+  
+  swaggerDocs:
+    handler: src/handlers/swaggerHandler.handler
+    events:
+      - http:
+          path: docs
+          method: get
+
+  swaggerJson:
+    handler: src/handlers/swaggerJsonHandler.handler
+    events:
+      - http:
+          path: swagger.json
+          method: get
 
 package:
   individually: false
+  include:
+    - src/static/swagger/**

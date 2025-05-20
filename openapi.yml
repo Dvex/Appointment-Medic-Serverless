@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Appointment API
+  description: API para registrar y consultar citas médicas por país (PE, CL).
+  version: 1.0.0
+
+servers:
+  - url: https:///ls6yy1b91f.execute-api.us-east-1.amazonaws.com/dev
+    description: Desplegado en AWS API Gateway
+
+paths:
+  /appointment:
+    post:
+      summary: Registrar una nueva cita médica
+      operationId: createAppointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+      responses:
+        '201':
+          description: Cita registrada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Datos incompletos o inválidos
+        '500':
+          description: Error interno del servidor
+
+  /appointment/{insuredId}:
+    get:
+      summary: Obtener todas las citas de un asegurado
+      operationId: getAppointmentsByInsured
+      parameters:
+        - name: insuredId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de citas del asegurado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '404':
+          description: No se encontraron citas
+        '500':
+          description: Error interno del servidor
+
+components:
+  schemas:
+    AppointmentRequest:
+      type: object
+      required:
+        - insuredId
+        - scheduleId
+        - countryISO
+      properties:
+        insuredId:
+          type: string
+          example: "00001"
+        scheduleId:
+          type: integer
+          example: 456
+        countryISO:
+          type: string
+          enum: [PE, CL]
+          example: "PE"
+
+    Appointment:
+      allOf:
+        - $ref: '#/components/schemas/AppointmentRequest'
+        - type: object
+          properties:
+            appointmentId:
+              type: string
+              example: "00001-1716161790000"
+            status:
+              type: string
+              enum: [pending, completed]
+              example: "pending"

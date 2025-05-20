@@ -12,7 +12,9 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.149",
     "@types/node": "^22.15.19",
+    "swagger-ui-dist": "^5.21.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "yamljs": "^0.3.0"
   }
 }

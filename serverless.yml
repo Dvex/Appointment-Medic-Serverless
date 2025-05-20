@@ -3,7 +3,7 @@ org: eduardocabrera
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: appointment-medic
 
-frameworkVersion: '4'
+frameworkVersion: "4"
 
 provider:
   name: aws
@@ -13,21 +13,21 @@ provider:
   memorySize: 512
   timeout: 10
   environment:
-    DYNAMODB_TABLE_NAME: ${cf:appointment-cdk.AppointmentsTableName}
-    SNS_TOPIC_ARN: ${cf:appointment-cdk.AppointmentTopicArn}
-    EVENT_BUS_NAME: ${cf:appointment-cdk.AppointmentEventBusName}
-    DB_ENDPOINT: ${cf:appointment-cdk.AppointmentDbEndpoint}
-    DB_PORT: ${cf:appointment-cdk.AppointmentDbPort}
-    DB_NAME: ${cf:appointment-cdk.AppointmentDbName}
-    DB_SECRET_ARN: ${cf:appointment-cdk.AppointmentDbSecretArn}
-    QUEUE_COMPLETED_ARN: ${cf:appointment-cdk.BackupQueueArn}
+    DYNAMODB_TABLE_NAME: ${cf:AppointmentCdkStack.AppointmentsTableName}
+    SNS_TOPIC_ARN: ${cf:AppointmentCdkStack.AppointmentTopicArn}
+    EVENT_BUS_NAME: ${cf:AppointmentCdkStack.AppointmentEventBusName}
+    DB_ENDPOINT: ${cf:AppointmentCdkStack.AppointmentDbEndpoint}
+    DB_PORT: ${cf:AppointmentCdkStack.AppointmentDbPort}
+    DB_NAME: ${cf:AppointmentCdkStack.AppointmentDbName}
+    DB_SECRET_ARN: ${cf:AppointmentCdkStack.AppointmentDbSecretArn}
+    QUEUE_COMPLETED_ARN: ${cf:AppointmentCdkStack.BackupQueueArn}
   iam:
     role:
       statements:
         - Effect: Allow
           Action:
             - secretsmanager:GetSecretValue
-          Resource: ${cf:appointment-cdk.AppointmentDbSecretArn}
+          Resource: ${cf:AppointmentCdkStack.AppointmentDbSecretArn}
 
 functions:
   appointment:
@@ -40,33 +40,19 @@ functions:
           path: appointment/{insuredId}
           method: get
       - sqs:
-          arn: ${cf:appointment-cdk.BackupQueueArn}
+          arn: ${cf:AppointmentCdkStack.BackupQueueArn}
 
   appointment_pe:
     handler: src/handlers/appointment_pe.handler
     events:
       - sqs:
-          arn:
-            Fn::Join:
-              - ':'
-              - - 'arn:aws:sqs'
-                - ${self:provider.region}
-                - ${aws:accountId}
-                - ''
-                - ${cf:appointment-cdk.QueuePEName}
+          arn: ${cf:AppointmentCdkStack.QueuePEName}
 
   appointment_cl:
     handler: src/handlers/appointment_cl.handler
     events:
       - sqs:
-          arn:
-            Fn::Join:
-              - ':'
-              - - 'arn:aws:sqs'
-                - ${self:provider.region}
-                - ${aws:accountId}
-                - ''
-                - ${cf:appointment-cdk.QueueCLName}
+          arn: ${cf:AppointmentCdkStack.QueueCLName}
 
 plugins:
   - serverless-plugin-typescript
@@ -79,7 +65,7 @@ custom:
     bundle: true
     minify: false
     sourcemap: true
-    exclude: ['aws-sdk']
-    target: 'node18'
-    platform: 'node'
+    exclude: ["aws-sdk"]
+    target: "node18"
+    platform: "node"
     concurrency: 10

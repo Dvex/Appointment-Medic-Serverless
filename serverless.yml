@@ -69,7 +69,7 @@ functions:
                 - ${cf:appointment-cdk.QueueCLName}
 
 plugins:
-  - serverless-esbuild
+  - serverless-plugin-typescript
 
 package:
   individually: true

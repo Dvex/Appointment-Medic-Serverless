@@ -10,9 +10,12 @@ import { listAppointmentsFactory } from '../factories/listAppointmentsFactory'
 import { updateAppointmentStatusFactory } from '../factories/updateAppointmentStatusFactory'
 
 export const handler = async (
-  event: APIGatewayProxyEvent | SQSEvent,
+  rawEvent: APIGatewayProxyEvent | SQSEvent | string,
   context: Context
 ): Promise<APIGatewayProxyResult | void> => {
+
+  const event: any = typeof rawEvent === 'string' ? JSON.parse(rawEvent) : rawEvent
+
   try {
     // POST /appointment
     if ('httpMethod' in event && event.httpMethod === 'POST') {

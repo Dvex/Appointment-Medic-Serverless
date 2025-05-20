@@ -31,7 +31,7 @@ provider:
 
 functions:
   appointment:
-    handler: src/handlers/appointment.handler
+    handler: src/handlers/appointment.handler.handler
     events:
       - http:
           path: appointment
@@ -43,13 +43,13 @@ functions:
           arn: ${cf:AppointmentCdkStack.BackupQueueArn}
 
   appointment_pe:
-    handler: src/handlers/appointment_pe.handler
+    handler: src/handlers/appointment_pe.handler.handler
     events:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueuePEName}
 
   appointment_cl:
-    handler: src/handlers/appointment_cl.handler
+    handler: src/handlers/appointment_cl.handler.handler
     events:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueueCLName}

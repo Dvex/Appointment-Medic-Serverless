@@ -55,7 +55,7 @@ functions:
           arn: ${cf:AppointmentCdkStack.QueueCLName}
 
 plugins:
-  - serverless-plugin-typescript
+  - serverless-esbuild
 
 package:
   individually: true

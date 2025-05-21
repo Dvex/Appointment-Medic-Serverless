@@ -9,7 +9,7 @@ export class EventBridgePublisher {
     const command = new PutEventsCommand({
       Entries: [
         {
-          Source: 'appointment.handler',
+          Source: 'appointment.event',
           EventBusName: this.eventBusName,
           DetailType: 'AppointmentCompleted',
           Detail: JSON.stringify({

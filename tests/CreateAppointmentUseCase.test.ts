@@ -3,7 +3,9 @@ import { Appointment } from '../src/domain/entities/Appointment'
 
 describe('CreateAppointmentUseCase', () => {
   const mockRepo = {
-    save: jest.fn()
+    save: jest.fn(),
+    findByInsuredId: jest.fn(),
+    updateStatus: jest.fn()
   }
 
   const mockPublisher = {
@@ -13,7 +15,7 @@ describe('CreateAppointmentUseCase', () => {
   it('should create and save an appointment, and publish event', async () => {
     const useCase = new CreateAppointment(mockRepo, mockPublisher)
 
-    const input = { insuredId: '12345', scheduleId: 100, countryISO: 'PE' }
+    const input : { insuredId: string, scheduleId: number, countryISO: 'PE' | 'CL' } = { insuredId: '12345', scheduleId: 100, countryISO: 'PE' }
 
     const result = await useCase.execute(input)
 

@@ -54,6 +54,14 @@ Puedes usar Postman o cURL (según tus preferencias) para poder invocar las APIs
 curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
 ```
 
+### Pruebas Unitarias
+
+Puedes ejecutar las pruebas unitarias con el siguiente comando:
+
+```
+npm run test
+```
+
 ### Arquitectura Implementada
 
 La arquitectura implementada es la siguiente:

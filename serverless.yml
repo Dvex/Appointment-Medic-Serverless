@@ -44,7 +44,7 @@ provider:
         - Effect: Allow
           Action:
             - events:PutEvents
-          Resource: arn:aws:events:${self:provider.region}:*:event-bus/${cf:AppointmentCdkStack.AppointmentEventBusName}
+          Resource: ${cf:AppointmentCdkStack.AppointmentEventBusArn}
 
 functions:
   appointment:

@@ -20,14 +20,15 @@ Se utilizó el simple HTTP API con Node.js desplegandose en AWS Lambda y API Gat
 
 Para deployar el proyecto Serverless, primero se debe ejecutar el CDK de la Infraestructura en AWS que está en el siguiente repositorio: https://github.com/Dvex/Appointment-CDK.
 
-Se debe configurar el AWS account/region para que el comando 
+Se debe configurar el AWS account/region, de la cuenta a usar en AWS, para ejecutar los comandos que deployará la arquitectura:
 
 ```
-cdk deploy
+$ cdk synth
+$ cdk deploy
 ```
-pueda desplegar la arquitectura.
+pueda desplegar la arquitectura completa.
 
-Luego de ello, se debe hacer deploy del proyecto Serverless:
+Una vez implementada la arquitectura, se debe hacer deploy del proyecto Serverless:
 
 ```
 serverless deploy

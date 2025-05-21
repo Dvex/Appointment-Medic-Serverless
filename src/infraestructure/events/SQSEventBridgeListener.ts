@@ -1,12 +1,12 @@
 import { AppointmentStatusEventListener } from '../../domain/repositories/AppointmentStatusEventListener'
 import { SQSClient, ReceiveMessageCommand, DeleteMessageCommand } from '@aws-sdk/client-sqs'
-import { UpdateAppointmentStatusUseCase } from '../../application/usecases/UpdateAppointmentStatus'
+import { UpdateAppointmentStatus } from '../../application/usecases/UpdateAppointmentStatus'
 
 export class SQSEventBridgeListener implements AppointmentStatusEventListener {
   private readonly client = new SQSClient({})
   private readonly queueUrl = process.env.EVENTBRIDGE_SQS_URL || ''
 
-  constructor(private readonly useCase: UpdateAppointmentStatusUseCase) {}
+  constructor(private readonly useCase: UpdateAppointmentStatus) {}
 
   async listen(): Promise<void> {
     const result = await this.client.send(

@@ -19,7 +19,7 @@ async function getDbConfigFromSecrets() {
 
   const secret = JSON.parse(response.SecretString)
   return {
-    host: process.env.DB_HOST,
+    host: process.env.DB_ENDPOINT,
     port: Number(process.env.DB_PORT),
     user: secret.username,
     password: secret.password,

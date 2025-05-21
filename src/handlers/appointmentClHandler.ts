@@ -7,7 +7,9 @@ export const handler: SQSHandler = async (event: SQSEvent) => {
   for (const record of event.Records) {
     try {
       const body = JSON.parse(record.body)
-      const { insuredId, scheduleId, countryISO } = body
+      const message = JSON.parse(body.Message)
+
+      const { insuredId, scheduleId, countryISO } = message
 
       if (countryISO === 'CL') {
         await useCase.execute({ insuredId, scheduleId, countryISO })

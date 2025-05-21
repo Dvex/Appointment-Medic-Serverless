@@ -34,7 +34,9 @@ provider:
             - dynamodb:Query
             - dynamodb:UpdateItem
             - dynamodb:GetItem
-          Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${cf:AppointmentCdkStack.AppointmentsTableName}
+          Resource:
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${cf:AppointmentCdkStack.AppointmentsTableName}
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${cf:AppointmentCdkStack.AppointmentsTableName}/index/insuredId-index
         - Effect: Allow
           Action:
             - sns:Publish

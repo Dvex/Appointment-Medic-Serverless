@@ -53,7 +53,7 @@ export const handler = async (
 
       const promises = event.Records.map(async (record: SQSEvent['Records'][0]) => {
         const message = JSON.parse(record.body)
-        if (message.appointmentId) {
+        if (message.detail.appointmentId) {
           await useCase.execute(message.appointmentId, 'completed')
         }
       })

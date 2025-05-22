@@ -75,7 +75,15 @@ plugins:
   - serverless-auto-swagger
 
 package:
-  individually: false
+  individually: true
+  excludeDevDependencies: true
+  patterns:
+    - '!**/*.ts'
+    - '!**/*.map'
+    - '!tests/**'
+    - '!docs/**'
+    - '!src/**/*.d.ts'
+    - '!node_modules/.bin/**'
 
 custom:
   autoswagger:

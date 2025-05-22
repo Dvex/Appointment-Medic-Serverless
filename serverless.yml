@@ -70,22 +70,18 @@ functions:
     events:
       - sqs:
           arn: ${cf:AppointmentCdkStack.QueueCLName}
-  
-  swaggerDocs:
-    handler: src/handlers/swaggerHandler.handler
-    events:
-      - http:
-          path: docs
-          method: get
 
-  swaggerJson:
-    handler: src/handlers/swaggerJsonHandler.handler
-    events:
-      - http:
-          path: swagger.json
-          method: get
+plugins:
+  - serverless-auto-swagger
 
 package:
   individually: false
-  include:
-    - src/static/swagger/**
+
+custom:
+  autoswagger:
+    title: Documentation Appointment API
+    apiType: http
+    generateSwaggerOnDeploy: true
+    typefiles:
+      - src/docs/swagger/appointment-input.d.ts
+      - src/docs/swagger/appointment.d.ts

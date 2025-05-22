@@ -41,9 +41,9 @@ Los endpoints a testear son los siguientes:
 ✔ Los servicios estan deployandos y las URLS son las siguientes:
 
 endpoints:
-  POST - https://1r7j5w6i42.execute-api.us-east-1.amazonaws.com/dev/appointment
-  GET - https://1r7j5w6i42.execute-api.us-east-1.amazonaws.com/dev/appointment/{insuredId}
-  DOCUMENTACION - https://1r7j5w6i42.execute-api.us-east-1.amazonaws.com/dev/doc
+  POST - https://g9jvnxuv88.execute-api.us-east-1.amazonaws.com/dev/appointment
+  GET - https://g9jvnxuv88.execute-api.us-east-1.amazonaws.com/dev/appointment/{insuredId}
+  DOCUMENTATION - https://g9jvnxuv88.execute-api.us-east-1.amazonaws.com/dev/swagger
 ```
 
 ### Invocacion

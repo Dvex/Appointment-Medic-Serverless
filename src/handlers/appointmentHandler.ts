@@ -49,10 +49,12 @@ export const handler = async (
 
     // Evento desde SQS
     if ('Records' in event) {
+      console.log('ENTRO AL EVENT SQS')
       const useCase = updateAppointmentStatusFactory()
 
       const promises = event.Records.map(async (record: SQSEvent['Records'][0]) => {
         const message = JSON.parse(record.body)
+        console.log('MESSAGE: ', message)
         if (message.detail.appointmentId) {
           await useCase.execute(message.detail.appointmentId, 'completed')
         }

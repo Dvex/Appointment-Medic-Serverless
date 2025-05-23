@@ -63,13 +63,13 @@ functions:
     handler: src/handlers/appointmentPeHandler.handler
     events:
       - sqs:
-          arn: ${cf:AppointmentCdkStack.QueuePEName}
+          arn: ${cf:AppointmentCdkStack.QueuePEArn}
 
   appointment_cl:
     handler: src/handlers/appointmentClHandler.handler
     events:
       - sqs:
-          arn: ${cf:AppointmentCdkStack.QueueCLName}
+          arn: ${cf:AppointmentCdkStack.QueueCLArn}
 
 plugins:
   - serverless-auto-swagger

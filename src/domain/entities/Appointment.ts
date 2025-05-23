@@ -12,7 +12,7 @@ export class Appointment {
     scheduleId: number;
     countryISO: 'PE' | 'CL';
   }): Appointment {
-    const appointmentId = `${data.insuredId}-${Date.now()}`
+    const appointmentId = `${data.insuredId}-${data.scheduleId}`
     return new Appointment(appointmentId, data.insuredId, data.scheduleId, data.countryISO, 'pending')
   }
 }
